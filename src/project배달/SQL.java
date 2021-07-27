@@ -23,12 +23,12 @@ public class SQL {
 	
 	// [1} DB접속
 	public void connect() {
-		con = DBC.DBConnect();	
+		con = DBC.DBconnect();	
 			
 	}
 
 	public void insert(User user) {
-		String sql = "INSERT INTO USER VALUES(?,?,?,?,?,TO_DATE(?))";
+		String sql = "INSERT INTO P_USER VALUES(?,?,?,?,?,TO_DATE(?))";
 		
 		try {
 			pstmt = con.prepareStatement(sql);
@@ -42,6 +42,36 @@ public class SQL {
 		
 	}
 
+	public void searchN(String fName) {
+		// TODO Auto-generated method stub
+		String sql = "select * FROM FOOD WHERE F_SNAME LIKE '%?%'";
+		try {
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, fName);
+			int result = pstmt.executeUpdate();
+			if(result>0)
+			{
+				System.out.println("검색에 성공했습니다.");
+			}
+			else
+			{
+				System.out.println("검색에 실패했습니다.");
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	
+	public void close() {
+		try {
+			con.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 	
 	
 
