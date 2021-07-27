@@ -130,11 +130,7 @@ public class Main {
 			
 			switch(menu) {
 			case 1:			// 음식 이름으로 찾기
-				System.out.println("찾으실 음식 이름을 입력해 주세요!");
-				String f_name = sc.next();
-				food.setF_name(f_name);
-				sql.searchN(food);
-				
+				sql.searchN();
 				break;
 			case 2:			// 가격대로 찾기
 				System.out.println("원하시는 가격대 두개를 입력해주세요!");

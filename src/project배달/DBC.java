@@ -17,7 +17,6 @@ public class DBC {
 		try {
 			Class.forName("oracle.jdbc.driver.OracleDriver");
 			con = DriverManager.getConnection(url, user, password);
-			System.out.println("DB접속 성공!");
 		} catch (ClassNotFoundException cne) {
 			System.out.println("DB접속 실패 : 드라이버 로딩 실패!");
 			cne.printStackTrace();
