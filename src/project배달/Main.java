@@ -61,26 +61,48 @@ public class Main {
 				
 				break;
 			case 3:
-				
+				run = false;
 				break;
 			}
 			
 		} while(run);
 		
 		
-		
+		menu = 0;
 		run = true;
 		
 		do {
+			System.out.println("================================================");
+			System.out.println("1.회원가입		2.로그인		3.IDㆍPW찾기		4.회원가입");
+			System.out.println("5.로그인		6.IDㆍPW찾기 	7.회원가입");
+			System.out.println("================================================");
+			System.out.print("메뉴 선택 >> ");
 			
+			menu = sc.nextInt();
 			
-			
-			
-			
+			switch(menu) {
+			case 1:			//회원 가입
+				break;
+			case 2:
+				break;
+			case 3:
+				break;
+			case 4:			//회원 가입
+				break;
+			case 5:
+				break;
+			case 6:
+				break;
+			case 7:
+				break;
+			default:
+				System.out.println("메뉴를 다시 선택해주세요");
+				break;
+			}
 			
 		} while(run);
-		}
-
 	}
 
 }
+
+
