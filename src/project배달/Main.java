@@ -121,8 +121,8 @@ public class Main {
 		
 		do {
 			System.out.println("================================================");
-			System.out.println("1.음식 이름으로 찾기		2.가격대로 찾기		3.가게별 찾기");
-			System.out.println("4.장바구니 			5.결제하기		 	6.종료");
+			System.out.println("1.음식 이름으로 찾기          2.가격대로 찾기          3.가게별 찾기");
+			System.out.println("4.장바구니                       5.결제하기                6.종료");
 			System.out.println("================================================");
 			System.out.print("메뉴 선택 >> ");
 			
