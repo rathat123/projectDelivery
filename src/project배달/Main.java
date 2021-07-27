@@ -20,7 +20,7 @@ public class Main {
 		
 		do {
 			System.out.println("==================================");
-			System.out.println("1.회원가입    2.로그인    3.IDㆍPW찾기");
+			System.out.println("1.회원가입 	   2.로그인    3.IDㆍPW찾기");
 			System.out.println("==================================");
 			System.out.print("메뉴 선택 >> ");
 			
@@ -67,6 +67,19 @@ public class Main {
 			
 		} while(run);
 		
+		
+		
+		run = true;
+		
+		do {
+			
+			
+			
+			
+			
+			
+		} while(run);
+		}
 
 	}
 
