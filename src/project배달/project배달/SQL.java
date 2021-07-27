@@ -361,7 +361,6 @@ public class SQL {
 	public void orderAll() {
 		String sql1 = "DROP TABLE P_ORDER";
 		String sql2 = "CREATE TABLE P_ORDER( O_NAME NVARCHAR2(10) NOT NULL, O_PRICE NUMBER NOT NULL)";
-		
 		try {
 			stmt = con.createStatement();
 			rs = stmt.executeQuery(sql1);
@@ -385,38 +384,5 @@ public class SQL {
 			e.printStackTrace();
 		}
 
-	}
-
-	public void checkout() {
-		// TODO Auto-generated method stub
-		System.out.println("결제 방법을 선택해주세요.");
-		System.out.println("1. 앱에서 결제    2. 현장결제 (그외는 메뉴로 갑니다.)");
-		int num = sc.nextInt();
-		switch (num) {
-		case 1:
-			checkOut();
-			quit();
-			break;
-		case 2:
-			quit();
-			break;
-		default:
-			System.out.println("메뉴로 갑니다.");
-		}
-	}
-	
-	public void checkOut() {
-		String sql = "Select S_Account from shop group by S_Account";
-		showOrder();
-		try {
-			stmt = con.createStatement();
-			rs = stmt.executeQuery(sql);
-			System.out.println(rs+"입금해주세요.");
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-		
 	}
 }

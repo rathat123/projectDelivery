@@ -17,7 +17,6 @@ public class Main {
 		int menu = 0;
 		
 		sql.connect();
-		sql.orderAll();
 		
 		do {
 			System.out.println("==================================");
@@ -157,8 +156,6 @@ public class Main {
 				sql.dropOrder();
 				break;
 			case 5:			// 결제하기	
-				sql.checkout();
-				run = false;
 				break;
 			case 6:			// 종료
 				sql.quit();

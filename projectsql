@@ -1,0 +1,68 @@
+DROP TABLE P_ORDER;
+DROP TABLE FOOD;
+DROP TABLE SHOP;
+DROP TABLE P_USER;
+
+
+CREATE TABLE P_USER(
+    U_ID    NVARCHAR2(15)CONSTRAINT U_ID_PK PRIMARY KEY,
+    U_PW    NUMBER NOT NULL CONSTRAINT U_PW_CK CHECK(LENGTH(U_PW)=4),
+    U_NAME  NVARCHAR2(5)NOT NULL,
+    U_ADDR  NVARCHAR2(30)NOT NULL,
+    U_PHONE NVARCHAR2(15)NOT NULL,
+    U_BIRTH DATE NOT NULL
+);
+
+CREATE TABLE SHOP(
+    S_NAME  NVARCHAR2(10) CONSTRAINT S_NAME_PK PRIMARY KEY,
+    S_ADDR  NVARCHAR2(30) NOT NULL,
+    S_PHONE NVARCHAR2(15) NOT NULL,
+    S_Account NVARCHAR2(20) NOT NULL
+);
+
+CREATE TABLE FOOD(
+    F_SNAME NVARCHAR2(10) NOT NULL,
+    F_NAME  NVARCHAR2(10)NOT NULL,
+    F_PRICE NUMBER NOT NULL,
+    CONSTRAINT F_SNAME_FK FOREIGN KEY(F_SNAME)
+    REFERENCES SHOP(S_NAME) 
+);
+
+CREATE TABLE P_ORDER(
+    O_NAME  NVARCHAR2(10) NOT NULL,
+    O_PRICE NUMBER NOT NULL
+);
+
+
+insert into shop VALUES ('중화반점', '인천광역시 ****','111-1111-1111','110-354-111111');
+insert into shop VALUES ('김밥천국', '인천광역시 ****','222-2222-2222','110-354-111111');
+insert into shop VALUES ('교촌치킨', '인천광역시 ****','333-3333-3333','110-354-111111');
+insert into shop VALUES ('청년피자', '인천광역시 ****','444-4444-4444','110-354-111111');
+insert into shop VALUES ('신전떡볶이', '인천광역시 ****','555-5555-5555','110-354-111111');
+insert into shop VALUES ('맘스터치', '인천광역시 ****','666-6666-6666','110-354-111111');
+insert into shop VALUES ('김밥신화', '인천광역시 ****','777-7777-7777','110-354-111111');
+insert into shop VALUES ('대흥각', '인천광역시 ****','888-8888-8888','110-354-111111');
+
+
+insert into food values ('중화반점','짬뽕',6000);
+insert into food values ('중화반점','짜장',5500);
+insert into food values ('대흥각','유니짜장',7000);
+insert into food values ('대흥각','백짬뽕',7000);
+
+insert into food values ('김밥천국','치즈김밥',4000);
+insert into food values ('김밥천국','참치김밥',3500);
+insert into food values ('김밥신화','김치김밥',3500);
+insert into food values ('김밥신화','김밥',2000);
+
+insert into food values ('교촌치킨','교촌오리지날치킨',15000);
+insert into food values ('교촌치킨','교촌레드오리지날치킨',16000);
+
+insert into food values ('청년피자','바삭한허니비피자',14900);
+insert into food values ('청년피자','진짜감자피자',14900);
+
+insert into food values ('신전떡볶이','떡볶이',3000);
+insert into food values ('신전떡볶이','치즈떡볶이',4000);
+
+insert into food values ('맘스터치','싸이버거세트',5800);
+insert into food values ('맘스터치','인크레더블버거세트',6900);
+select * FROM FOOD WHERE F_SNAME LIKE '%피자%';
