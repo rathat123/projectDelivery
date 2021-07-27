@@ -21,7 +21,7 @@ public class Main {
 		
 		do {
 			System.out.println("==================================");
-			System.out.println("1.회원가입 	   2.로그인    3.IDㆍPW찾기");
+			System.out.println("1.회원가입          2.로그인          3.IDㆍPW찾기");
 			System.out.println("==================================");
 			System.out.print("메뉴 선택 >> ");
 			
@@ -134,7 +134,6 @@ public class Main {
 				String f_name = sc.next();
 				food.setF_name(f_name);
 				sql.searchN(food);
-				sql.selectF();
 				
 				break;
 			case 2:			// 가격대로 찾기
@@ -144,13 +143,11 @@ public class Main {
 				System.out.println("두번째 가격을 입력해주세요");
 				int s = sc.nextInt();
 				sql.searchP(f,s);
-				sql.selectF();
 				break;
 			case 3:			// 가게별 찾기
 				System.out.println("찾으실 가게 이름을 입력해 주세요!");
 				String shopname = sc.next();
 				sql.searchS(shopname);
-				sql.selectF();
 				break;
 			case 4:			// 장바구니  -> 음식 취소 포함
 				sql.showOrder();
