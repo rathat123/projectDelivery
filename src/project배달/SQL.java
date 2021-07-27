@@ -44,18 +44,19 @@ public class SQL {
 
 	public void searchN(String fName) {
 		// TODO Auto-generated method stub
-		String sql = "select * FROM FOOD WHERE F_SNAME LIKE '%?%'";
+		String count = "";
+		String sql = "SELECT F_NAME FROM FOOD WHERE F_NAME LIKE '%?%'";
 		try {
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, fName);
-			int result = pstmt.executeUpdate();
-			if(result>0)
+			rs = pstmt.executeQuery();
+			if(rs.next())
 			{
-				System.out.println("검색에 성공했습니다.");
+				count = rs.getString(1);
 			}
 			else
 			{
-				System.out.println("검색에 실패했습니다.");
+				
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -71,6 +72,11 @@ public class SQL {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+	}
+
+	public void searchP(int f, int s) {
+		// TODO Auto-generated method stub
+		
 	}
 	
 	

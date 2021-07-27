@@ -61,7 +61,6 @@ public class Main {
 				
 				break;
 			case 3:
-				run = false;
 				break;
 			}
 			
@@ -88,6 +87,12 @@ public class Main {
 				break;
 			case 2:			// 가격대로 찾기
 				System.out.println("원하시는 가격대 두개를 입력해주세요!");
+				System.out.println("첫번째 가격을 입력해주세요");
+				int f = sc.nextInt();
+				System.out.println("두번째 가격을 입력해주세요");
+				int s = sc.nextInt();
+				sql.searchP(f,s);
+				
 				break;
 			case 3:			// 가게별 찾기
 				break;
