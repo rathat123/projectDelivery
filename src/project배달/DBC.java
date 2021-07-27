@@ -15,11 +15,11 @@ public class DBC {
 		Connection con = null;
 		
 		// 접속할 DB의 계정정보
-		String user = "MINWOO";
+		String user = "NJW009";
 		String password = "1111";
 				
 		// 접속할 DB의 주소정보
-		String url = "jdbc:oracle:thin:@localhost:1521:XE";
+		String url = "jdbc:oracle:thin:@121.65.47.76:1531:XE";
 		
 		try {
 			Class.forName("oracle.jdbc.driver.OracleDriver");
