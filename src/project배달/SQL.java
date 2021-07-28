@@ -136,17 +136,17 @@ public class SQL {
 
 	public void shopname() {
 
-String sql = "SELECT S_NAME, S_PHONE FROM SHOP";
-		
+		String sql = "SELECT S_NAME, S_PHONE FROM SHOP";
+
 		try {
 			stmt = con.createStatement();
-			
+
 			rs = stmt.executeQuery(sql);
 			System.out.println("================================================");
-			
-			while(rs.next()) {
-				System.out.print("가게이름 : "+rs.getString(1)+"          \t");
-				System.out.println("가게번호 : "+ rs.getString(2));
+
+			while (rs.next()) {
+				System.out.print("가게이름 : " + rs.getString(1) + "          \t");
+				System.out.println("가게번호 : " + rs.getString(2));
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -165,7 +165,6 @@ String sql = "SELECT S_NAME, S_PHONE FROM SHOP";
 	}
 
 	public void searchN() {
-		// TODO Auto-generated method stub
 		String sql = "SELECT * FROM FOOD WHERE F_NAME LIKE '%'||?||'%'";
 		System.out.println("찾으실 음식 이름을 입력해 주세요!");
 		String name = sc.next();
@@ -173,24 +172,20 @@ String sql = "SELECT S_NAME, S_PHONE FROM SHOP";
 			pstmt = con.prepareStatement(sql);
 
 			pstmt.setString(1, name);
-			
-			
-			
 			rs = pstmt.executeQuery();
-			
-			
-				while (rs.next()) {
-					System.out.print("가게이름 : " + rs.getString(1)+"\t");
-					System.out.print("음식이름 : " + rs.getString(2)+"\t");
-					System.out.println("가격 : " + rs.getString(3));
-					
-				
-			}
-				selectF();
-//			else {
-//				System.out.println("품목이 없습니다.");
-//			}
 
+			while (rs.next()) {
+				System.out.print("가게이름 : " + rs.getString(1) + "\t");
+				System.out.print("음식이름 : " + rs.getString(2) + "\t");
+				System.out.println("가격 : " + rs.getString(3));
+			}
+
+			if(rs.getRow()<=0) {
+				System.out.println("검색 결과가 없습니다.");
+			}
+			else {
+				selectF();//음식 주문 메소드 호출
+			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -214,16 +209,19 @@ String sql = "SELECT S_NAME, S_PHONE FROM SHOP";
 			pstmt.setInt(1, min);
 			pstmt.setInt(2, max);
 			rs = pstmt.executeQuery();
-			
-			
+
 			while (rs.next()) {
-				System.out.print("가게이름 : " + rs.getString(1)+"\t");
-				System.out.print("음식이름 : " + rs.getString(2)+"\t");
+				System.out.print("가게이름 : " + rs.getString(1) + "\t");
+				System.out.print("음식이름 : " + rs.getString(2) + "\t");
 				System.out.println("가격 : " + rs.getString(3));
-				
-			
-		}
-			selectF();
+			}
+
+			if(rs.getRow()<=0) {
+				System.out.println("검색 결과가 없습니다.");
+			}
+			else {
+				selectF();//음식 주문 메소드 호출
+			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -240,17 +238,19 @@ String sql = "SELECT S_NAME, S_PHONE FROM SHOP";
 			pstmt.setString(1, shopname);
 
 			rs = pstmt.executeQuery();
-			
-			
-			while (rs.next()) {
-				System.out.print("가게이름 : " + rs.getString(1)+"\t");
-				System.out.print("음식이름 : " + rs.getString(2)+"\t");
-				System.out.println("가격 : " + rs.getString(3));
-				
-			
-		}
-			selectF();
 
+			while (rs.next()) {
+				System.out.print("가게이름 : " + rs.getString(1) + "\t");
+				System.out.print("음식이름 : " + rs.getString(2) + "\t");
+				System.out.println("가격 : " + rs.getString(3));
+			}
+
+			if(rs.getRow()<=0) {
+				System.out.println("검색 결과가 없습니다.");
+			}
+			else {
+				selectF();//음식 주문 메소드 호출
+			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -284,13 +284,12 @@ String sql = "SELECT S_NAME, S_PHONE FROM SHOP";
 					pstmt = con.prepareStatement(sql);
 					pstmt.setString(1, name);
 					rs = pstmt.executeQuery();
+
 					if (rs.next()) {
 						String resultName = rs.getString(1);
 						int resultPrice = rs.getInt(2);
 						insertFood(resultName, resultPrice);
-					}
-					else
-					{
+					} else {
 						System.out.println("품목이 없습니다. 다시 확인해 주세요.");
 					}
 				} catch (SQLException e) {
@@ -338,8 +337,8 @@ String sql = "SELECT S_NAME, S_PHONE FROM SHOP";
 			rs = stmt.executeQuery(sql);
 			System.out.println("주문하신 음식은");
 			while (rs.next()) {
-				System.out.print(rs.getString(1)+"\t");
-				System.out.println("가격은 : "+rs.getInt(2));
+				System.out.print(rs.getString(1) + "\t");
+				System.out.println("가격은 : " + rs.getInt(2));
 				sum += rs.getInt(2);
 			}
 			System.out.println("총 금액은 " + sum);
@@ -387,7 +386,7 @@ String sql = "SELECT S_NAME, S_PHONE FROM SHOP";
 	public void orderAll() {
 		String sql1 = "DROP TABLE P_ORDER";
 		String sql2 = "CREATE TABLE P_ORDER( O_NAME NVARCHAR2(10) NOT NULL, O_PRICE NUMBER NOT NULL)";
-		
+
 		try {
 			stmt = con.createStatement();
 			rs = stmt.executeQuery(sql1);
@@ -431,19 +430,20 @@ String sql = "SELECT S_NAME, S_PHONE FROM SHOP";
 			break;
 		}
 	}
-	
+
 	public void checkOut() {
-		String sql = "Select S_Account from shop group by S_Account";
+		String sql = "Select distinct(S_Account) from shop";
 		showOrder();
 		try {
 			stmt = con.createStatement();
 			rs = stmt.executeQuery(sql);
-			System.out.println(rs+"입금해주세요.");
+			if (rs.next()) {
+				System.out.println(rs.getString(1) + "계좌에 입금 됩니다.");
+			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
-		
+
 	}
 }
