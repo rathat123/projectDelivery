@@ -8,7 +8,14 @@ public class User {
 	private String u_addr;
 	private String u_phone;
 	private String u_birth;
+	private int u_point;
 	
+	public int getU_point() {
+		return u_point;
+	}
+	public void setU_point(int u_point) {
+		this.u_point = u_point;
+	}
 	public String getU_id() {
 		return u_id;
 	}

@@ -147,14 +147,14 @@ public class Main {
 				break;
 			case 4:
 				sql.pointC(u_id);
-				sql.pointS();
+				sql.pointS(u_id);
 				break;
 			case 5:			// 장바구니  -> 음식 취소 포함
 				sql.showOrder();
 				sql.dropOrder();
 				break;
 			case 6:			// 결제하기	
-				sql.checkout();
+				sql.checkout(u_id);
 				run = false;
 				break;
 			case 7:			// 종료
