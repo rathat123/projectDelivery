@@ -134,9 +134,9 @@ public class Main {
 				break;
 			case 2:			// 가격대로 찾기
 				System.out.println("원하시는 가격대 두개를 입력해주세요!");
-				System.out.println("첫번째 가격을 입력해주세요");
+				System.out.println("얼마의 가격부터 찾으시나요?");
 				int f = sc.nextInt();
-				System.out.println("두번째 가격을 입력해주세요");
+				System.out.println("최대 얼마까지 찾아보고 싶으세요?");
 				int s = sc.nextInt();
 				sql.searchP(f,s);
 				break;
