@@ -542,6 +542,7 @@ public class SQL {
 			pstmt = con.prepareStatement(sql);
 			pstmt.setInt(1, point);
 			pstmt.setString(2, u_id);
+			System.out.println(point+"원 적립돼셨습니다!");
 			pstmt.executeUpdate();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block

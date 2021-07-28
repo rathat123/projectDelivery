@@ -71,6 +71,7 @@ public class Main {
                 if(check) {
                     System.out.println("로그인 했습니다.");  
                     sql.shopname();
+                    System.out.println("");
                     sql.pointC(u_id);
                     System.out.println("");
                     run = false;
