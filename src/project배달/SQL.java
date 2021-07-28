@@ -435,6 +435,7 @@ public class SQL {
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, name);
 			pstmt.executeQuery();
+			System.out.println(name+"가 취소되었습니다.");
 
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -503,7 +504,7 @@ public class SQL {
 			}
 			if(sum>balance)
 			{
-				System.out.println("포인트가 부족합니다!");
+				System.out.println((sum-balance)+"포인트가 부족합니다!");
 				quit();
 			}
 			else
@@ -542,7 +543,8 @@ public class SQL {
 			pstmt = con.prepareStatement(sql);
 			pstmt.setInt(1, point);
 			pstmt.setString(2, u_id);
-			System.out.println(point+"원 적립돼셨습니다!");
+			System.out.println(point+"원 적립되셨습니다." + 
+					"");
 			pstmt.executeUpdate();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
