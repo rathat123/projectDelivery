@@ -15,6 +15,7 @@ public class Main {
 		
 		boolean run = true;
 		int menu = 0;
+		String u_id = null;
 		
 		sql.connect();
 		sql.orderAll();
@@ -30,7 +31,7 @@ public class Main {
 			switch(menu) {
 			case 1:			//회원 가입
 				System.out.print("아이디 >> ");
-				String u_id = sc.next();
+				u_id = sc.next();
 				
 				System.out.print("비밀번호(4자리) >> ");
 				int u_pw = sc.nextInt();
@@ -70,6 +71,7 @@ public class Main {
                 if(check) {
                     System.out.println("로그인 했습니다.");  
                     sql.shopname();
+                    sql.pointC(u_id);
                     System.out.println("");
                     run = false;
                 }else {
@@ -120,10 +122,10 @@ public class Main {
 		run = true;
 		
 		do {
-			System.out.println("================================================");
-			System.out.println("1.음식 이름으로 찾기          2.가격대로 찾기          3.가게별 찾기");
-			System.out.println("4.장바구니                       5.결제하기                6.종료");
-			System.out.println("================================================");
+			System.out.println("==========================================================");
+			System.out.println("1.음식 이름으로 찾기          2.가격대로 찾기          3.가게별 찾기          4.포인트 적립");
+			System.out.println("5.장바구니                       6.결제하기                7.종료");
+			System.out.println("==========================================================");
 			System.out.print("메뉴 선택 >> ");
 			
 			menu = sc.nextInt();
@@ -133,27 +135,29 @@ public class Main {
 				sql.searchN();
 				break;
 			case 2:			// 가격대로 찾기
-				System.out.println("원하시는 가격대 두개를 입력해주세요!");
-				System.out.println("얼마의 가격부터 찾으시나요?");
-				int f = sc.nextInt();
-				System.out.println("최대 얼마까지 찾아보고 싶으세요?");
-				int s = sc.nextInt();
-				sql.searchP(f,s);
+				System.out.println("원하시는 가격대를 선택해주세요!");
+				System.out.println("1. 전체   2. 10,000원 이하   3. 10,000~15,000   4. 15,000~20,000");
+				int sel = sc.nextInt();
+				sql.searchP(sel);
 				break;
 			case 3:			// 가게별 찾기
 				System.out.println("찾으실 가게 이름을 입력해 주세요!");
 				String shopname = sc.next();
 				sql.searchS(shopname);
 				break;
-			case 4:			// 장바구니  -> 음식 취소 포함
+			case 4:
+				sql.pointC(u_id);
+				sql.pointS();
+				break;
+			case 5:			// 장바구니  -> 음식 취소 포함
 				sql.showOrder();
 				sql.dropOrder();
 				break;
-			case 5:			// 결제하기	
+			case 6:			// 결제하기	
 				sql.checkout();
 				run = false;
 				break;
-			case 6:			// 종료
+			case 7:			// 종료
 				sql.quit();
 				run = false;
 				break;

@@ -19,7 +19,10 @@ public class SQL {
 
 	// 3. DB데이터 받기
 	ResultSet rs = null;
+	ResultSet rs2 = null;
 
+	User user = new User();
+	
 	// [1} DB접속
 	public void connect() {
 		con = DBC.DBconnect();
@@ -27,7 +30,7 @@ public class SQL {
 	}
 
 	public void insert(User user) {
-		String sql = "INSERT INTO P_USER VALUES(?,?,?,?,?,TO_DATE(?))";
+		String sql = "INSERT INTO P_USER VALUES(?,?,?,?,?,TO_DATE(?),?)";
 
 		try {
 			pstmt = con.prepareStatement(sql);
@@ -38,6 +41,7 @@ public class SQL {
 			pstmt.setString(4, user.getU_addr());
 			pstmt.setString(5, user.getU_phone());
 			pstmt.setString(6, user.getU_birth());
+			pstmt.setInt(7, 0);
 
 			int result = pstmt.executeUpdate();
 
@@ -137,17 +141,20 @@ public class SQL {
 	public void shopname() {
 
 		String sql = "SELECT S_NAME, S_PHONE FROM SHOP";
-
+ 
 		try {
 			stmt = con.createStatement();
 
 			rs = stmt.executeQuery(sql);
+
+			
 			System.out.println("================================================");
 
 			while (rs.next()) {
 				System.out.print("가게이름 : " + rs.getString(1) + "          \t");
 				System.out.println("가게번호 : " + rs.getString(2));
 			}
+				
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -192,17 +199,41 @@ public class SQL {
 		}
 	}
 
-	public void searchP(int f, int s) {
+	public void searchP(int sel) {
 		// TODO Auto-generated method stub
-		int max = 0;
+		boolean run = true;
 		int min = 0;
-		if (f > s) {
-			max = f;
-			min = s;
-		} else {
-			max = s;
-			min = f;
+		int max = 0;
+		do {
+		
+		switch(sel)
+		{
+		case 1:
+			min = 0;
+			max = 50000;
+			run = false;
+			break;
+		case 2:
+			min = 0;
+			max = 10000;
+			run = false;
+			break;
+		case 3:
+			min = 10000;
+			max = 15000;
+			run = false;
+			break;
+		case 4:
+			min = 15000;
+			max = 20000;
+			run = false;
+			break;
+			default:
+				System.out.println("다시선택해주세요");
+				break;
+			
 		}
+		}while(run);
 		String sql = "SELECT * FROM FOOD WHERE F_PRICE BETWEEN ? and ?";
 		try {
 			pstmt = con.prepareStatement(sql);
@@ -415,7 +446,7 @@ public class SQL {
 	public void checkout() {
 		// TODO Auto-generated method stub
 		System.out.println("결제 방법을 선택해주세요.");
-		System.out.println("1. 앱에서 결제    2. 현장결제 (그외는 메뉴로 갑니다.)");
+		System.out.println("1. 무통장 입금    2. 현장결제    3.포인트로 결제 (그외는 메뉴로 갑니다.)");
 		int num = sc.nextInt();
 		switch (num) {
 		case 1:
@@ -425,12 +456,15 @@ public class SQL {
 		case 2:
 			quit();
 			break;
+		case 3:
+			checkPoint();
+			break;
 		default:
 			System.out.println("메뉴로 갑니다.");
 			break;
 		}
 	}
-
+	
 	public void checkOut() {
 		String sql = "Select distinct(S_Account) from shop";
 		showOrder();
@@ -438,12 +472,89 @@ public class SQL {
 			stmt = con.createStatement();
 			rs = stmt.executeQuery(sql);
 			if (rs.next()) {
-				System.out.println(rs.getString(1) + "계좌에 입금 됩니다.");
+				System.out.println(rs.getString(1) + "계좌에 입금 해주십쇼.");
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+	}
+	public void checkPoint() {
+		String sql1 = "SELECT U_POINT FROM P_USER WHERE U_ID = '?'";
+		String sql2 = "select O_PRICE from P_ORDER";
+		int sum = 0;
+		int balance = 0;
+		try {
+			pstmt = con.prepareStatement(sql1);
+			pstmt.setString(1, user.getU_id());
+			rs = pstmt.executeQuery();
+			stmt = con.createStatement();
+			rs2 = stmt.executeQuery(sql2);
+			while(rs2.next())
+				 sum += rs2.getInt(1);
+			if(rs.next())
+			{
+				balance = rs.getInt(1);
+			}
+			if(sum>balance)
+			{
+				System.out.println("포인트가 부족합니다!");
+			}
+			else
+			{
+				discount(sum);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	}
 
+	private void discount(int sum) {
+		// TODO Auto-generated method stub
+		String sql = "UPDATE P_USER SET U_POINT = U_POINT - ? WHERE U_ID = '?'";
+		try {
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, sum);
+			pstmt.setString(2, user.getU_id());
+			pstmt.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
+	public void pointS() {
+		// TODO Auto-generated method stub
+		System.out.println("얼마나 적립하시겠습니까?");
+		int point = sc.nextInt();
+		String sql = "UPDATE P_USER SET U_POINT = U_POINT + ? WHERE U_ID = '?'";
+		try {
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, point);
+			pstmt.setString(2, user.getU_id());
+			pstmt.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
+	public void pointC(String u_id) {
+		// TODO Auto-generated method stub
+		String sql = "SELECT U_POINT FROM P_USER WHERE U_ID = '?'";
+		try {
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, u_id);
+			if(rs.next())
+			{
+				int num = rs.getInt(1);
+				System.out.println(u_id+"님의 잔액은"+num);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 }

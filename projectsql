@@ -10,7 +10,8 @@ CREATE TABLE P_USER(
     U_NAME  NVARCHAR2(5)NOT NULL,
     U_ADDR  NVARCHAR2(30)NOT NULL,
     U_PHONE NVARCHAR2(15)NOT NULL,
-    U_BIRTH DATE NOT NULL
+    U_BIRTH DATE NOT NULL,
+    U_POINT NUMBER
 );
 
 CREATE TABLE SHOP(
@@ -65,4 +66,8 @@ insert into food values ('신전떡볶이','치즈떡볶이',4000);
 
 insert into food values ('맘스터치','싸이버거세트',5800);
 insert into food values ('맘스터치','인크레더블버거세트',6900);
-select * FROM FOOD WHERE F_SNAME LIKE '%피자%';
+
+
+Select distinct(S_Account) from shop;
+
+commit;
